@@ -1,6 +1,18 @@
-﻿namespace JobTracking.API
+﻿using JobTracking.Application.Interfaces;
+using JobTracking.Application.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace JobTracking.API
 {
-    public class ServiceConfiguratorExtensions
+    public static class ServiceConfiguratorExtensions
     {
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddDbContext<DbContext>(options =>
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IJobService, JobService>();
+            return services;
+        }
     }
 }

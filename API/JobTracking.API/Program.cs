@@ -6,13 +6,7 @@ namespace JobTracking.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.AddContext();
-            builder.AddIdentity();
-            builder.AddCors();
-            builder.AddServices();
-
+            builder.Services.ConfigureServices(builder.Configuration);
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
